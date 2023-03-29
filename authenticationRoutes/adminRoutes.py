@@ -1,6 +1,7 @@
 # admin authentication routes
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from server import models
@@ -77,3 +78,16 @@ async def create_admin(admin: CreateAdmin, db: Session = Depends(get_db)):
     db.commit()
 
     return {"status": "new admin created successfully"}
+
+
+# get jwt token
+@adminRouter.post("/token")
+async def login_for_jwt_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    admin_user = await authenticate_admin(form_data.username, form_data.password, db)
+
+    if not admin_user:
+        raise HTTPException(status_code=404, detail='Admin not found')
+    else:
+        admin_det = db.query(models.Admin).filter(form_data.username == models.Admin.email).first()
+        token = create_jwt_access_token(email=admin_det.email, collage=admin_det.college, id=admin_det.id)
+        return token

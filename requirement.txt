@@ -13,3 +13,4 @@ SQLAlchemy==1.4.40
 python-dotenv==0.20.0
 passlib[bcrypt]
 python-jose[cryptography]
+python-multipart
