@@ -1,0 +1,3 @@
+export DATABASE_USER_NAME = your_progres_username
+export DATABASE_PASSWORD = password
+export DATABASE = database_name
