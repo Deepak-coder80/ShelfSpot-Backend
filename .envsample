@@ -1,3 +1,7 @@
 export DATABASE_USER_NAME = your_progres_username
 export DATABASE_PASSWORD = password
 export DATABASE = database_name
+export SECRET_KEY = secret_key_of_jwt
+export ALGORITHM = algo_of_jwt
+export BCRYPT_SCHEM1 = crypt_scheme
+export BCRYPT_SCHEM2 = crypt_scheme
