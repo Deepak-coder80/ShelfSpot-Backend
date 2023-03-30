@@ -9,10 +9,8 @@ from server.database import engine, SessionLocal
 from dotenv import load_dotenv, find_dotenv
 from passlib.context import CryptContext
 from jose import jwt
-
 import sys
 import os
-
 sys.path.append("/")
 
 studentRouter = APIRouter()
