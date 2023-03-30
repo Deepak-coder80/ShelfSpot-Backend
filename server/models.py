@@ -37,6 +37,7 @@ class QuestionPaperModel(Base):
     qnSubName = Column(String)
     qnMonth = Column(String)
     qnScheme = Column(Integer)
+    qnSemester = Column(Integer)
     qnYear = Column(String)
     qnLink = Column(String)
 
