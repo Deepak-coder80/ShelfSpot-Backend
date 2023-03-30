@@ -18,3 +18,25 @@ class Student(Base):
     email = Column(String, unique=True)
     password = Column(String)
     college = Column(String)
+
+
+class BookModel(Base):
+    __tablename__ = 'collageBooks'
+    id = Column(Integer, primary_key=True, index=True)
+    bookName = Column(String)
+    bookAuthor = Column(String)
+    count = Column(Integer)
+    shelfNumber = Column(Integer)
+    racNumber = Column(Integer)
+    position = Column(Integer)
+
+
+class QuestionPaperModel(Base):
+    __tablename__ = 'collageQuestionPapers'
+    id = Column(Integer, primary_key=True, index=True)
+    qnSubName = Column(String)
+    qnMonth = Column(String)
+    qnScheme = Column(Integer)
+    qnYear = Column(String)
+    qnLink = Column(String)
+
