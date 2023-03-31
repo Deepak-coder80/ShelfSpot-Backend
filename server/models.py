@@ -38,6 +38,6 @@ class QuestionPaperModel(Base):
     qnMonth = Column(String)
     qnScheme = Column(Integer)
     qnSemester = Column(Integer)
-    qnYear = Column(String)
+    qnYear = Column(Integer)
     qnLink = Column(String)
 
