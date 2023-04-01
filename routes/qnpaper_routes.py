@@ -56,7 +56,7 @@ async def read_qn_paper_by_name(subjectName: str, db: Session = Depends(get_db))
 
 # route for getting question paper by semeter
 @qnPaperRouter.get('/qPaperSem/{semester}')
-async def read_qn_paper_by_name(semester: int, db: Session = Depends(get_db)):
+async def read_qn_paper_by_semester(semester: int, db: Session = Depends(get_db)):
     qnPapers = db.query(models.QuestionPaperModel).filter(models.QuestionPaperModel.qnSemester == semester).all()
     if not qnPapers:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Question Papers not found')
