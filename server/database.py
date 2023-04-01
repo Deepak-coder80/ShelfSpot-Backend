@@ -6,14 +6,14 @@ from dotenv import load_dotenv,find_dotenv
 import os
 
 load_dotenv(find_dotenv())
-
+host = os.getenv('DATABASE_HOST')
 username = os.getenv('DATABASE_USER_NAME')
 password = os.environ.get('DATABASE_PASSWORD')
 database = os.environ.get('DATABASE')
 
 # database url
 
-DATABASE_URL = f"postgresql://{username}:{password}@localhost/{database}"
+DATABASE_URL = f"postgresql://{username}:{password}@{host}/{database}"
 
 # database engine
 engine = create_engine(DATABASE_URL)
