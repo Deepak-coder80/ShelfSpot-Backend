@@ -1,7 +1,8 @@
 # ShelfSpot-backend
 **ShelfSpot** is our academic **mini-project**. The aim for the project is to
 find availability and correct location of a book in the library and also
-able to download previous year question papers.
+able to download previous year question papers. This repository contains it's 
+backend code
 
 More about the project : [click here](https://www.dropbox.com/s/5ebj56w8iaror0q/SHELF%20SPOT%20PRESENTATION%20%281%29.pdf?dl=0)
 
