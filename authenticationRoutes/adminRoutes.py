@@ -96,6 +96,11 @@ async def create_admin(admin: CreateAdmin, db: Session = Depends(get_db)):
     # commit the transaction
     db.commit()
 
+    db.refresh(create_admin_model.id)
+
+    if not create_admin_model.id:
+        raise HTTPException(status_code=404, detail='Admin not created')
+
     return {"status": "new admin created successfully"}
 
 
