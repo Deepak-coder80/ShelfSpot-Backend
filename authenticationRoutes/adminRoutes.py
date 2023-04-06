@@ -110,6 +110,6 @@ async def login_for_jwt_token(form_data: OAuth2PasswordRequestForm = Depends(), 
         raise HTTPException(status_code=404, detail='Admin not found')
     else:
         # get user details and create the jwt and return
-        admin_det = db.query(models.Admin).filter(form_data.username == models.Admin.email).first()
+        admin_det = db.query(models.Admin).filter(models.Admin.email == form_data.username).first()
         token = create_jwt_access_token(email=admin_det.email, collage=admin_det.college, admin_id=admin_det.id)
         return token
