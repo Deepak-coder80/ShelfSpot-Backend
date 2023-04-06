@@ -118,3 +118,17 @@ async def login_for_jwt_token(form_data: OAuth2PasswordRequestForm = Depends(), 
         admin_det = db.query(models.Admin).filter(models.Admin.email == form_data.username).first()
         token = create_jwt_access_token(email=admin_det.email, collage=admin_det.college, admin_id=admin_det.id)
         return token
+
+@adminRouter.get("/collages/")
+def get_all_collages(db: Session = Depends(get_db)):
+
+    query = db.query(getattr(models.Admin, "college")).distinct()
+    result = [row[0] for row in query.all()]
+    return result
+    # collages = getattr(models.Admin, 'college')
+    #
+    # if not hasattr(collages, 'college'):
+    #     raise HTTPException(status_code=404, detail='No collages found')
+    #
+    # values = db.query(getattr(collages, 'college')).distinct().all()
+    # return {"values": [value[0] for value in values]}
