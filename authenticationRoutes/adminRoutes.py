@@ -1,17 +1,18 @@
 # admin authentication routes
 
+import os
+import sys
+
+from dotenv import load_dotenv, find_dotenv
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
+from jose import jwt
+from passlib.context import CryptContext
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+
 from server import models
 from server.database import engine, SessionLocal
-from dotenv import load_dotenv, find_dotenv
-from passlib.context import CryptContext
-from jose import jwt
-
-import sys
-import os
 
 sys.path.append("/")
 
@@ -88,7 +89,7 @@ async def create_admin(admin: CreateAdmin, db: Session = Depends(get_db)):
     create_admin_model = models.Admin()
     create_admin_model.email = admin.email
     create_admin_model.password = get_hash_password(admin.password)
-    create_admin_model.college = admin.collage
+    create_admin_model.collage = admin.collage
 
     # add new admin to the database
     db.add(create_admin_model)
@@ -119,16 +120,9 @@ async def login_for_jwt_token(form_data: OAuth2PasswordRequestForm = Depends(), 
         token = create_jwt_access_token(email=admin_det.email, collage=admin_det.college, admin_id=admin_det.id)
         return token
 
+
 @adminRouter.get("/collages/")
 def get_all_collages(db: Session = Depends(get_db)):
-
-    query = db.query(getattr(models.Admin, "college")).distinct()
+    query = db.query(getattr(models.Admin, "collage")).distinct()
     result = [row[0] for row in query.all()]
     return result
-    # collages = getattr(models.Admin, 'college')
-    #
-    # if not hasattr(collages, 'college'):
-    #     raise HTTPException(status_code=404, detail='No collages found')
-    #
-    # values = db.query(getattr(collages, 'college')).distinct().all()
-    # return {"values": [value[0] for value in values]}

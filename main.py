@@ -6,11 +6,14 @@ from routes import qnpaper_routes,bookroutes
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-app.include_router(adminRoutes.adminRouter)
-app.include_router(studentRoutes.studentRouter)
-app.include_router(qnpaper_routes.qnPaperRouter)
-app.include_router(bookroutes.bookRouter)
-@app.get("/")
 
+
+@app.get("/")
 def read_root():
     return {"status": "up", 'database-connection': 'established'}
+
+
+app.include_router(adminRoutes.adminRouter)
+app.include_router(studentRoutes.studentRouter)
+app.include_router(bookroutes.bookRouter)
+app.include_router(qnpaper_routes.qnPaperRouter)

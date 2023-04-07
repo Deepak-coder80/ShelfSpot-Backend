@@ -86,7 +86,7 @@ async def create_student(student: CreateStudent, db: Session = Depends(get_db)):
     create_student_model = models.Student()
     create_student_model.email = student.email
     create_student_model.password = get_hash_password(student.password)
-    create_student_model.college = student.collage
+    create_student_model.collage = student.collage
 
     # add new student to the database
     db.add(create_student_model)
@@ -109,5 +109,5 @@ async def login_for_jwt_token(form_data: OAuth2PasswordRequestForm = Depends(), 
     else:
         # get user details and create the jwt and return
         student_det = db.query(models.Student).filter(form_data.username == models.Student.email).first()
-        token = create_jwt_access_token(email=student_det.email, collage=student_det.college, student_id=student_det.id)
+        token = create_jwt_access_token(email=student_det.email, collage=student_det.collage, student_id=student_det.id)
         return token
