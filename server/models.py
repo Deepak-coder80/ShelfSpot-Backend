@@ -40,7 +40,7 @@ class QuestionPaperModel(Base):
     __tablename__ = 'collageQuestionPapers'
     id = Column(Integer, primary_key=True, index=True)
     qnSubName = Column(String,nullable=False)
-    qnMonth = Column(String,nullable=False,unique=True)
+    qnMonth = Column(String,nullable=False)
     qnScheme = Column(Integer,nullable=False)
     qnSemester = Column(Integer,nullable=False)
     qnYear = Column(Integer,nullable=False)
