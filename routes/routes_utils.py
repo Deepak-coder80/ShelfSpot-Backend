@@ -33,6 +33,8 @@ class CreateBook(BaseModel):
     racNumber: int
     position: int
     collage: str
+    description: str
+    book_id: int
 
 
 class GetBookByName(BaseModel):

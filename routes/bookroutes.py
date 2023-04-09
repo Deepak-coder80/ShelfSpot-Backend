@@ -24,6 +24,8 @@ async def add_new_book(book: CreateBook, db: Session = Depends(get_db)):
     new_book.racNumber = book.racNumber
     new_book.position = book.position
     new_book.collage = book.collage
+    new_book.book_description = book.description
+    new_book.book_id = book.book_id
     # add model to database
     db.add(new_book)
     # commit the change

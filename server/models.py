@@ -32,15 +32,17 @@ class BookModel(Base):
     racNumber = Column(Integer,nullable=False)
     position = Column(Integer,nullable=False)
     collage = Column(String,ForeignKey('admin.collage'),nullable=False)
+    book_description = Column(String,nullable=True)
+    book_id = Column(Integer, nullable=True)
     book = relationship('Admin', back_populates="books")
 
 class QuestionPaperModel(Base):
     __tablename__ = 'collageQuestionPapers'
     id = Column(Integer, primary_key=True, index=True)
     qnSubName = Column(String,nullable=False)
-    qnMonth = Column(String,nullable=False)
+    qnMonth = Column(String,nullable=False,unique=True)
     qnScheme = Column(Integer,nullable=False)
-    qnSemester = Column(Integer,nullable=False)
+    qnSemester = Column(Integer,nullable=False,unique=True)
     qnYear = Column(Integer,nullable=False)
     qnLink = Column(String,nullable=False)
     collage = Column(String, ForeignKey('admin.collage'), nullable=False)
