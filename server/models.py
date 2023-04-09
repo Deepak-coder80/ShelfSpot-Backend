@@ -42,7 +42,7 @@ class QuestionPaperModel(Base):
     qnSubName = Column(String,nullable=False)
     qnMonth = Column(String,nullable=False,unique=True)
     qnScheme = Column(Integer,nullable=False)
-    qnSemester = Column(Integer,nullable=False,unique=True)
+    qnSemester = Column(Integer,nullable=False)
     qnYear = Column(Integer,nullable=False)
     qnLink = Column(String,nullable=False)
     collage = Column(String, ForeignKey('admin.collage'), nullable=False)
