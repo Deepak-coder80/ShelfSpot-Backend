@@ -122,7 +122,7 @@ async def login_for_jwt_token(form_data: OAuth2PasswordRequestForm = Depends(), 
 
 
 @adminRouter.get("/collages/")
-def get_all_collages(db: Session = Depends(get_db)):
+def get_all_collages_of_admin(db: Session = Depends(get_db)):
     query = db.query(getattr(models.Admin, "collage")).distinct()
     result = [row[0] for row in query.all()]
     return result
