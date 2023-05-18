@@ -5,8 +5,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 import app.routes.routes_utils as utils
-from server import models
-from server.database import engine
+from app.authenticationRoutes.authentication_utils import get_db
+from app.server import models
+from app.server.database import engine
 
 
 # router
@@ -16,7 +17,7 @@ models.Base.metadata.create_all(bind=engine)
 
 # route for adding new book
 @bookRouter.post('/add_new_book')
-async def add_new_book(book: utils.CreateBook, db: Session = Depends(utils.get_db)):
+async def add_new_book(book: utils.CreateBook, db: Session = Depends(get_db)):
     # create a model
     new_book = models.BookModel()
     # assign properties
@@ -44,7 +45,7 @@ async def add_new_book(book: utils.CreateBook, db: Session = Depends(utils.get_d
 
 # route for getting book by name
 @bookRouter.post('/bookName/')
-async def get_book_by_name(book_name: utils.GetBookByName, db: Session = Depends(utils.get_db)):
+async def get_book_by_name(book_name: utils.GetBookByName, db: Session = Depends(get_db)):
     books = db.query(models.BookModel).filter(models.BookModel.bookName == book_name.name).filter(
         models.BookModel.collage == book_name.collage).all()
     if not books:
@@ -54,7 +55,7 @@ async def get_book_by_name(book_name: utils.GetBookByName, db: Session = Depends
 
 # route for getting book by author name
 @bookRouter.post('/bookAuthor/')
-async def get_book_by_author_name(book_author: utils.GetBookByAuthor, db: Session = Depends(utils.get_db)):
+async def get_book_by_author_name(book_author: utils.GetBookByAuthor, db: Session = Depends(get_db)):
     books = db.query(models.BookModel).filter(models.BookModel.bookAuthor == book_author.author).filter(
         models.BookModel.collage == book_author.collage).all()
 

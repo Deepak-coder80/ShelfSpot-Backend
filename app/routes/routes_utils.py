@@ -7,8 +7,9 @@ from sqlalchemy import null
 from app.server.database import SessionLocal
 
 
-# Question Paper Utils Models
+### Question Paper Utils Models ###
 
+# add new question paper model
 class CreateQuestionPaper(BaseModel):
     qnSubName: str
     qnMonth: str
@@ -18,18 +19,19 @@ class CreateQuestionPaper(BaseModel):
     qnLink: str
     collage: str
 
-
+# get question paper by it's name request model
 class GetQnPaperByName(BaseModel):
     name: str
     collage: str
 
-
+# get question paper by semester request model
 class GetQnPaperBySemester(BaseModel):
     semester: int
     collage: str
 
-# Book Utils Models
+### Book Utils Models ###
 
+# create new book model
 class CreateBook(BaseModel):
 
     bookName: str
@@ -42,22 +44,14 @@ class CreateBook(BaseModel):
     description: str
     book_id: int
 
-
+# get book  by it's name request model
 class GetBookByName(BaseModel):
     name: str
     collage: str
 
-
+# get book by author name  request model
 class GetBookByAuthor(BaseModel):
     author: str
     collage: str
 
-
-def get_db():
-    db = null
-    try:
-        db = SessionLocal()
-        yield db
-    finally:
-        db.close()
 
