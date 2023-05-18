@@ -1,8 +1,12 @@
 # routes for question paper management
+
+import sys
+sys.path.append("../")
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
-from routes.routes_utils import CreateQuestionPaper, GetQnPaperBySemester, GetQnPaperByName, get_db
+import app.routes.routes_utils as utils
 from server import models
 from server.database import engine
 
@@ -13,7 +17,7 @@ models.Base.metadata.create_all(bind=engine)
 
 # route for adding new question paper
 @qnPaperRouter.post('/add_qn_paper')
-async def add_question_paper(qn_paper: CreateQuestionPaper, db: Session = Depends(get_db)):
+async def add_question_paper(qn_paper: utils.CreateQuestionPaper, db: Session = Depends(utils.get_db)):
     # create a model
     new_qn_paper = models.QuestionPaperModel()
     # assign properties
@@ -38,7 +42,7 @@ async def add_question_paper(qn_paper: CreateQuestionPaper, db: Session = Depend
 
 # route for get question paper by subject name
 @qnPaperRouter.post('/qPaperSub/')
-async def read_qn_paper_by_name(qn_paper: GetQnPaperByName, db: Session = Depends(get_db)):
+async def read_qn_paper_by_name(qn_paper: utils.GetQnPaperByName, db: Session = Depends(utils.get_db)):
     qn_papers = db.query(models.QuestionPaperModel) \
         .filter(models.QuestionPaperModel.qnSubName == qn_paper.name) \
         .filter(models.QuestionPaperModel.collage == qn_paper.collage) \
@@ -50,7 +54,7 @@ async def read_qn_paper_by_name(qn_paper: GetQnPaperByName, db: Session = Depend
 
 # route for getting question paper by semester
 @qnPaperRouter.post('/qPaperSem/')
-async def read_qn_paper_by_semester(qn_paper: GetQnPaperBySemester, db: Session = Depends(get_db)):
+async def read_qn_paper_by_semester(qn_paper: utils.GetQnPaperBySemester, db: Session = Depends(utils.get_db)):
     qn_papers = db.query(models.QuestionPaperModel) \
         .filter(models.QuestionPaperModel.qnSemester == qn_paper.semester) \
         .filter(models.QuestionPaperModel.collage == qn_paper.collage) \

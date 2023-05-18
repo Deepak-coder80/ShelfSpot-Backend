@@ -1,4 +1,6 @@
 # student authentication routes
+import sys
+sys.path.append("../")
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
@@ -9,9 +11,7 @@ from server.database import engine, SessionLocal
 from dotenv import load_dotenv, find_dotenv
 from passlib.context import CryptContext
 from jose import jwt
-import sys
 import os
-sys.path.append("/")
 
 studentRouter = APIRouter()
 models.Base.metadata.create_all(bind=engine)

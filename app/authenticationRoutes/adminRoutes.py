@@ -2,6 +2,7 @@
 
 import os
 import sys
+sys.path.append("../")
 
 from dotenv import load_dotenv, find_dotenv
 from fastapi import APIRouter, Depends, HTTPException
@@ -11,10 +12,10 @@ from passlib.context import CryptContext
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from server import models
-from server.database import engine, SessionLocal
+from app.server import models
+from app.server.database import engine, SessionLocal
 
-sys.path.append("/")
+
 
 adminRouter = APIRouter()
 models.Base.metadata.create_all(bind=engine)

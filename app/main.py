@@ -1,9 +1,12 @@
+import sys
+sys.path.append("../")
+
 import uvicorn
 from fastapi import FastAPI
-from server import models
-from server.database import engine
-from authenticationRoutes import adminRoutes, studentRoutes
-from routes import qnpaper_routes,bookroutes
+from app.server import models
+from app.server.database import engine
+from app.authenticationRoutes import adminRoutes, studentRoutes
+from app.routes import qnpaper_routes,bookroutes
 
 # create all model schemas
 models.Base.metadata.create_all(bind=engine)

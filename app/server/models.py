@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
-
+# admin model
 class Admin(Base):
     __tablename__ = "admin"
     id = Column(Integer, primary_key=True, index=True)
@@ -14,6 +14,7 @@ class Admin(Base):
     books = relationship('BookModel',back_populates='book')
     qn_papers = relationship('QuestionPaperModel',back_populates='qn')
 
+# student model
 class Student(Base):
     __tablename__ = "student"
     id = Column(Integer, primary_key=True, index=True)
@@ -22,6 +23,7 @@ class Student(Base):
     collage = Column(String,ForeignKey('admin.collage'),nullable=False)
     admin = relationship('Admin',back_populates="student")
 
+# book model
 class BookModel(Base):
     __tablename__ = 'collageBooks'
     id = Column(Integer, primary_key=True, index=True)
@@ -36,6 +38,7 @@ class BookModel(Base):
     book_id = Column(Integer, nullable=True)
     book = relationship('Admin', back_populates="books")
 
+# question paper model
 class QuestionPaperModel(Base):
     __tablename__ = 'collageQuestionPapers'
     id = Column(Integer, primary_key=True, index=True)

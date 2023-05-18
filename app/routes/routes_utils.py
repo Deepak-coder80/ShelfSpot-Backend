@@ -1,8 +1,13 @@
+import sys
+sys.path.append("../")
+
 from pydantic import BaseModel
 from sqlalchemy import null
 
-from server.database import SessionLocal
+from app.server.database import SessionLocal
 
+
+# Question Paper Utils Models
 
 class CreateQuestionPaper(BaseModel):
     qnSubName: str
@@ -23,6 +28,7 @@ class GetQnPaperBySemester(BaseModel):
     semester: int
     collage: str
 
+# Book Utils Models
 
 class CreateBook(BaseModel):
 
