@@ -8,6 +8,7 @@ sniffio==1.2.0
 starlette==0.19.1
 typing_extensions==4.3.0
 uvicorn==0.18.2
+guicorn
 psycopg2-binary==2.9.3
 SQLAlchemy==1.4.40
 python-dotenv==0.20.0
