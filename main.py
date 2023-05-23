@@ -34,7 +34,3 @@ app.include_router(bookroutes.bookRouter, tags = ["Book Mangement Routes"])
 # 
 app.include_router(qnpaper_routes.qnPaperRouter, tags = ["Question Paper Mangement Routes"])
 
-
-# run the app
-if __name__ == '__main__':
-    uvicorn.run(app = app)
