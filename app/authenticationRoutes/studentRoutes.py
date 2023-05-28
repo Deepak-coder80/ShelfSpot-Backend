@@ -32,7 +32,7 @@ async def create_student(student: utils.CreateStudent, db: Session = Depends(uti
 
 
 # get jwt token
-@studentRouter.post("/tokenforstudent")
+@studentRouter.post("/token/studnet")
 async def login_for_jwt_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(utils.get_db)):
     # get the student user according to entered credential
     student_user = await utils.authenticate_student(form_data.username, form_data.password, db)
