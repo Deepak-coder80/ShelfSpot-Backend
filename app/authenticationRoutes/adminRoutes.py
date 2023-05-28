@@ -39,7 +39,7 @@ async def create_admin(admin: utils.CreateAdmin, db: Session = Depends(utils.get
 
 
 # get jwt token
-@adminRouter.post("/token")
+@adminRouter.post("/token/admin")
 async def login_for_jwt_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(utils.get_db)):
     # get the admin user according to entered credential
     admin_user = await utils.authenticate_admin(form_data.username, form_data.password, db)
