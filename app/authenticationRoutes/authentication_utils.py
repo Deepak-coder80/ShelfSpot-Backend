@@ -72,9 +72,21 @@ async def authenticate_admin(email: str, password: str, db):
         return False
     return True
 
+async def authenticate_student(email: str, password: str, db):
+    # get the admin form the database
+    student = db.query(models.Student).filter(models.Student.email == email).first()
+
+    # if not present
+    if not student:
+        return False
+    # if present then verify the password
+    if not verify_hash_password(password, student.password):
+        return False
+    return True
+
 # create jwt access token
-def create_jwt_access_token(email: str, collage: str, admin_id: int):
+def create_jwt_access_token(email: str, collage: str, id: int):
     # create jwt message
-    encode = {"id": admin_id, "email": email, "collage": collage}
+    encode = {"id": id, "email": email, "collage": collage}
     # return jwt encoded with secret key and algorithm
     return jwt.encode(encode, secret_key, algorithm=algorithm)
