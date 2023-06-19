@@ -51,3 +51,15 @@ class QuestionPaperModel(Base):
     qnLink = Column(String,nullable=False)
     collage = Column(String, ForeignKey('admin.collage'), nullable=False)
     qn = relationship('Admin',back_populates="qn_papers")
+
+class UnVerifiedQuestionPaperModel(Base):
+    __tablename__ = 'unverified_collage_question_papers'
+    id = Column(Integer, primary_key=True, index=True)
+    qnSubName = Column(String,nullable=False)
+    qnMonth = Column(String,nullable=False)
+    qnScheme = Column(Integer,nullable=False)
+    qnSemester = Column(Integer,nullable=False)
+    qnYear = Column(Integer,nullable=False)
+    qnLink = Column(String,nullable=False)
+    collage = Column(String, ForeignKey('admin.collage'), nullable=False)
+    qn = relationship('Admin',back_populates="qn_papers")
