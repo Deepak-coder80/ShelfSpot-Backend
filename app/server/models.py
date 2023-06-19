@@ -30,6 +30,7 @@ class BookModel(Base):
     bookName = Column(String,nullable=False)
     bookAuthor = Column(String,nullable=False)
     count = Column(Integer,nullable=False)
+    totalCount = Column(Integer,nullable=False)
     shelfNumber = Column(Integer,nullable=False)
     racNumber = Column(Integer,nullable=False)
     position = Column(Integer,nullable=False)

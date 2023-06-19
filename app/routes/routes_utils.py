@@ -43,6 +43,7 @@ class CreateBook(BaseModel):
     collage: str
     description: str
     book_id: int
+    totalCount: int
 
 # get book  by it's name request model
 class GetBookByName(BaseModel):
@@ -52,6 +53,10 @@ class GetBookByName(BaseModel):
 # get book by author name  request model
 class GetBookByAuthor(BaseModel):
     author: str
+    collage: str
+
+class GetBookById(BaseModel):
+    id: int
     collage: str
 
 
