@@ -30,6 +30,7 @@ async def add_new_book(book: utils.CreateBook, db: Session = Depends(get_db)):
     new_book.collage = book.collage
     new_book.book_description = book.description
     new_book.book_id = book.book_id
+    new_book.totalCount = book.totalCount
     # add model to database
     db.add(new_book)
     # commit the change
@@ -61,4 +62,36 @@ async def get_book_by_author_name(book_author: utils.GetBookByAuthor, db: Sessio
 
     if not books:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Book not found')
+    return books
+
+# route for search by book id
+@bookRouter.post('/find/book/id')
+async def get_book_by_book_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
+    books = db.query(models.BookModel).filter(models.BookModel.book_id == book_id.id).filter(
+        models.BookModel.collage == book_id.collage).first()
+    if not books:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Book not found')
+    return books
+
+# route for updating the count of the book
+@bookRouter.put('/update/increment/book/id')
+async def get_book_by_book_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
+    books = db.query(models.BookModel).filter(models.BookModel.book_id == book_id.id).filter(
+        models.BookModel.collage == book_id.collage).first()
+    if not books:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Book not found')
+    books.count = books.count + 1
+    db.commit()
+    db.refresh(books)
+    return books
+
+@bookRouter.put('/update/decrement/book/id')
+async def get_book_by_book_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
+    books = db.query(models.BookModel).filter(models.BookModel.book_id == book_id.id).filter(
+        models.BookModel.collage == book_id.collage).first()
+    if not books:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Book not found')
+    books.count = books.count - 1
+    db.commit()
+    db.refresh(books)
     return books
