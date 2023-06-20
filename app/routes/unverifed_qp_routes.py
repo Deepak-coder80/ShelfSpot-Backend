@@ -67,5 +67,15 @@ async def read_all_unverified_qp(book_id: int, db: Session = Depends(get_db)):
    db.delete(qn_paper)
    return {'message':'verified'}
 
+@unverifed_qp_router.delete('/delete/{book_id}')
+async def delete_unverified_qp(book_id: int, db: Session = Depends(get_db)):
+   qp = db.query(models.UnVerifiedQuestionPaperModel)\
+         .filter(models.UnVerifiedQuestionPaperModel.id == book_id).first()
+   
+   if not qp:
+      raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail='book not found')
+   db.delete(qp)
+   db.commit()
+   return {'message': 'deleted successfully'}
 
 
