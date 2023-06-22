@@ -5,7 +5,8 @@ from fastapi import FastAPI
 from app.server import models
 from app.server.database import engine
 from app.authenticationRoutes import adminRoutes, studentRoutes
-from app.routes import qnpaper_routes,bookroutes
+from app.routes import bookroutes,qnpaper_routes,unverifed_qp_routes
+
 
 # create all model schemas
 models.Base.metadata.create_all(bind=engine)
@@ -33,3 +34,4 @@ mainRouter.include_router(bookroutes.bookRouter, tags = ["Book Mangement Routes"
 # 
 mainRouter.include_router(qnpaper_routes.qnPaperRouter, tags = ["Question Paper Mangement Routes"])
 
+mainRouter.include_router(unverifed_qp_routes.unverifed_qp_router,tags=['Unverified Question paper Routes'])
