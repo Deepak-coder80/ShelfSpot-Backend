@@ -62,4 +62,4 @@ class UnVerifiedQuestionPaperModel(Base):
     qnYear = Column(Integer,nullable=False)
     qnLink = Column(String,nullable=False)
     collage = Column(String, ForeignKey('admin.collage'), nullable=False)
-    qn = relationship('Admin',back_populates="qn_papers")
+    

@@ -9,7 +9,7 @@ from app.server.database import engine
 import app.routes.routes_utils as utils
 from app.authenticationRoutes.authentication_utils import get_db
 
-unverifed_qp_router = APIRouter(prefix='qp/unverified')
+unverifed_qp_router = APIRouter(prefix='/qp/unverified')
 models.Base.metadata.create_all(bind=engine)
 
 @unverifed_qp_router.post('/add')
