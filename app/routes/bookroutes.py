@@ -75,23 +75,57 @@ async def get_book_by_book_id(book_id: utils.GetBookById,db: Session = Depends(g
 
 # route for updating the count of the book
 @bookRouter.put('/update/increment/book/id')
-async def get_book_by_book_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
+async def increment_book_by_book_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
     books = db.query(models.BookModel).filter(models.BookModel.book_id == book_id.id).filter(
         models.BookModel.collage == book_id.collage).first()
     if not books:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Book not found')
-    books.count = books.count + 1
+    new_count = books.count + 1
+    if new_count > books.totalCount:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Book cannot update')
+    else:
+        books.count = new_count
     db.commit()
     db.refresh(books)
     return books
 
 @bookRouter.put('/update/decrement/book/id')
-async def get_book_by_book_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
+async def decrement_book_by_book_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
     books = db.query(models.BookModel).filter(models.BookModel.book_id == book_id.id).filter(
         models.BookModel.collage == book_id.collage).first()
     if not books:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Book not found')
-    books.count = books.count - 1
+    new_count = books.count - 1
+    if new_count < 0:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Book cannot update')
+    else:
+        books.count = new_count
+    db.commit()
+    db.refresh(books)
+    return books
+
+@bookRouter.put('/update/increment/total/count/book/')
+async def increment_book_total_by_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
+    books = db.query(models.BookModel).filter(models.BookModel.book_id == book_id.id).filter(
+        models.BookModel.collage == book_id.collage).first()
+    if not books:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Book not found')
+    books.totalCount = books.totalCount + 1
+    db.commit()
+    db.refresh(books)
+    return books
+
+@bookRouter.put('/update/decrement/total/count/book/')
+async def increment_book_total_by_id(book_id: utils.GetBookById,db: Session = Depends(get_db)):
+    books = db.query(models.BookModel).filter(models.BookModel.book_id == book_id.id).filter(
+        models.BookModel.collage == book_id.collage).first()
+    if not books:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Book not found')
+    new_count = books.totalCount - 1
+    if new_count < 0:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Book cannot update')
+    else:
+        books.totalCount = new_count
     db.commit()
     db.refresh(books)
     return books
