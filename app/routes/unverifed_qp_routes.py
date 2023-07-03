@@ -42,10 +42,10 @@ async def read_all_unverified_qp(collage_name: str, db: Session = Depends(get_db
       raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='No QP find')
    return question_paper
 
-@unverifed_qp_router.post('/verify/{book_id}')
-async def read_all_unverified_qp(book_id: int, db: Session = Depends(get_db)):
+@unverifed_qp_router.post('/verify/{qp_id}')
+async def verify_all_unverified_qp(qp_id: int, db: Session = Depends(get_db)):
    qn_paper = db.query(models.UnVerifiedQuestionPaperModel)\
-    .filter(models.UnVerifiedQuestionPaperModel.id == book_id).first()
+    .filter(models.UnVerifiedQuestionPaperModel.id == qp_id).first()
    
    if not qn_paper:
       raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='No QP find')
@@ -67,10 +67,10 @@ async def read_all_unverified_qp(book_id: int, db: Session = Depends(get_db)):
    db.delete(qn_paper)
    return {'message':'verified'}
 
-@unverifed_qp_router.delete('/delete/{book_id}')
-async def delete_unverified_qp(book_id: int, db: Session = Depends(get_db)):
+@unverifed_qp_router.delete('/delete/{qp_id}')
+async def delete_unverified_qp(qp_id: int, db: Session = Depends(get_db)):
    qp = db.query(models.UnVerifiedQuestionPaperModel)\
-         .filter(models.UnVerifiedQuestionPaperModel.id == book_id).first()
+         .filter(models.UnVerifiedQuestionPaperModel.id == qp_id).first()
    
    if not qp:
       raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail='book not found')
