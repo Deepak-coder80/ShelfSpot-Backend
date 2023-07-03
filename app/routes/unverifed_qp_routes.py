@@ -65,6 +65,7 @@ async def verify_all_unverified_qp(qp_id: int, db: Session = Depends(get_db)):
    if not new_qn_paper.id:
       raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail='some error occured')
    db.delete(qn_paper)
+   db.commit()
    return {'message':'verified'}
 
 @unverifed_qp_router.delete('/delete/{qp_id}')
